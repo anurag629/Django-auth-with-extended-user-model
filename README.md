@@ -58,3 +58,26 @@
                 raise ValueError('Super User must have is_staff true')
 
             return self.create_user(email, password, **extra_fields)
+
+
+## 5. Adding auth user model in settings.y file
+    AUTH_USER_MODEL = 'accounts.User'
+
+
+## 6. Confiure media files in settings.py file :
+    # Base url to serve media files
+    MEDIA_URL = '/media/'
+
+    # Path where media is stored
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+## 7. Add the followig code in urls.py file :
+    from django.conf import settings
+    from django.conf.urls.static import static
+
+    urlpatterns = [
+        path('admin/', admin.site.urls),
+        ...]
+    if settings.DEBUG:
+        urlpatterns += static(settings.MEDIA_URL,
+                            document_root=settings.MEDIA_ROOT)
